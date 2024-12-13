@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from db_setup import fetch_data, insert_data
+from db_setup import fetch_data, insert_data, get_connection
 
 app = Flask(__name__)
 
@@ -24,3 +24,17 @@ def add_data():
     value = request.json.get('value')
     insert_data(name, value)
     return jsonify({"message": "Data added successfully!"}), 201
+
+@app.route('/dbtest', methods=['GET'])
+def db_test():
+    try:
+        conn = get_connection()
+        conn.close()
+        return jsonify({"message": "Database connection successful!"}), 200
+    except Exception as e:
+        return jsonify({"message": f"Error connecting to database: {e}"}), 500
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=6000)
+

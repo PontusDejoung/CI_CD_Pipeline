@@ -15,5 +15,6 @@ spec:
       containers:
       - name: flask-app
         image: flask-app:latest
+        imagePullPolicy: Never  # Viktigt: Tvingar Kubernetes att använda den lokala bilden
         ports:
         - containerPort: 6000
