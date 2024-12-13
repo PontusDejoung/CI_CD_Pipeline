@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t flask-app:latest .
+
+      # Test application
+      - name: Run application tests
+        run: |
+          echo "No tests defined, just a demo!"
+      
+      # Push Docker image to kind
+      - name: Load Docker image into kind
+        if: github.event_name == 'push'
+        run: |
+          kind load docker-image flask-app:latest
+          
+      # Apply Kubernetes manifests
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/ingress.yaml
