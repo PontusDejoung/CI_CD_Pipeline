@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+# Den här mappen används av PyInstaller för att skapa exekverbara filer.
+# Om du använder PyInstaller kan du lägga till dessa rader.
+dist/
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# VS Code-filer
+.vscode/
+*.code-workspace
+
+# Profilfiler
+.ipynb_checkpoints
+
+# Pyre
+.pyre/
+
+# Cython debug information
+cython_debug/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.swp
+*.swo
+
+# macOS filer
+.DS_Store
+
+# Windows Thumbnails
+Thumbs.db
+desktop.ini
+
+# Pycharm files
+.idea/
