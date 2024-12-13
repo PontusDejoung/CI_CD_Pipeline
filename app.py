@@ -12,6 +12,12 @@ def get_data():
     df = fetch_data()
     return df.to_json(orient="records")
 
+@app.route('/data/sum', methods=['GET'])
+def sum_values():
+    df = fetch_data()
+    total = df['value'].sum()
+    return jsonify({"total_value": total})
+
 @app.route('/data', methods=['POST'])
 def add_data():
     name = request.json.get('name')
