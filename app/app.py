@@ -5,6 +5,9 @@ import os
 
 app = Flask(__name__)
 
+import os
+print(f"Current working directory: {os.getcwd()}")
+print(f"Files in /app: {os.listdir('/app')}")
 
 schema = load_schema('/app/data_schema.avsc')  
 
