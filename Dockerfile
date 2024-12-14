@@ -1,17 +1,18 @@
-# Start from a lightweight Python image
+# Starta med en Python-bild
 FROM python:3.9-slim
 
-# Set the working directory
+# Sätt arbetskatalogen
 WORKDIR /app
 
-# Copy all files in the current directory to the container's /app directory
-COPY . /app
-
-# Install dependencies
+# Kopiera över requirements och installera beroenden
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose Flask's default port
-EXPOSE 5000
+# Kopiera Flask-applikationen till containern
+COPY . .
 
-# Run the Flask app
+# Exponera porten som Flask kör på
+EXPOSE 6000
+
+# Starta Flask-applikationen
 CMD ["python", "app.py"]

@@ -1,0 +1,8 @@
+{
+  "type": "record",
+  "name": "DataRecord",
+  "fields": [
+    {"name": "name", "type": "string"},
+    {"name": "value", "type": "int"}
+  ]
+}
