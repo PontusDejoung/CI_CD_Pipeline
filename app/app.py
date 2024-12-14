@@ -4,6 +4,8 @@ from fastavro.schema import load_schema
 import os
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
+
 
 import os
 print(f"Current working directory: {os.getcwd()}")
