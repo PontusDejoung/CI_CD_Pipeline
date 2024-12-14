@@ -8,12 +8,11 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Kopiera Flask-applikationen till containern
-COPY . .
+# Kopiera Flask-applikationen och schema-fil till containern
+COPY . /app
 
 # Exponera porten som Flask kör på
 EXPOSE 6000
 
 # Använd Gunicorn för att köra Flask-applikationen
 CMD ["gunicorn", "--bind", "0.0.0.0:6000", "app.app:app"]
-
