@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 
-schema = load_schema('data_schema.avsc')  
+schema = load_schema('./app/data_schema.avsc')  
 
 def write_to_avro(data):
     file_name = 'data.avro'
@@ -15,11 +15,20 @@ def write_to_avro(data):
 
 def read_from_avro():
     file_name = 'data.avro'
+
+    if not os.path.exists(file_name):
+        with open(file_name, 'wb') as f: 
+            pass
+
     data = []
-    with open(file_name, 'rb') as f:
-        reader = fastavro.reader(f, schema)
-        for record in reader:
-            data.append(record)
+    try:
+        with open(file_name, 'rb') as f:
+            reader = fastavro.reader(f, schema)
+            for record in reader:
+                data.append(record)
+    except ValueError as e:
+        print(f"Error reading Avro file: {e}")
+    
     return data
 
 @app.route('/')
@@ -49,4 +58,4 @@ def sum_values():
     return jsonify({"total_value": total})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=6000)
+    app.run(host='0.0.0.0', port=8000)
