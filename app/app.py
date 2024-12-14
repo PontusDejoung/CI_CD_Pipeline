@@ -15,7 +15,7 @@ schema = load_schema('/app/data_schema.avsc')
 
 def write_to_avro(data):
     file_name = 'data.avro'
-    with open(file_name, 'ab') as f:  
+    with open(file_name, 'a+') as f:  
         writer = fastavro.writer(f, schema, data)
 
 def read_from_avro():
