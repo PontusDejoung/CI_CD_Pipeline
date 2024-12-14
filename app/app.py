@@ -37,7 +37,9 @@ def home():
 
 @app.route('/data', methods=['GET'])
 def get_data():
+    print("Attempting to fetch data from Avro file...")
     data = read_from_avro()
+    print("Data fetched:", data)
     return jsonify(data)
 
 @app.route('/data', methods=['POST'])
@@ -57,5 +59,3 @@ def sum_values():
     total = sum(record['value'] for record in data)
     return jsonify({"total_value": total})
 
-if __name__ == "__main__":
-    app.run()
