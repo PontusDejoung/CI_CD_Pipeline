@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 
-schema = load_schema('./app/data_schema.avsc')  
+schema = load_schema('/app/data_schema.avsc')  
 
 def write_to_avro(data):
     file_name = 'data.avro'
@@ -17,7 +17,7 @@ def read_from_avro():
     file_name = 'data.avro'
 
     if not os.path.exists(file_name):
-        with open(file_name, 'wb') as f: 
+        with open(file_name, 'wb') as f:
             pass
 
     data = []
@@ -26,10 +26,14 @@ def read_from_avro():
             reader = fastavro.reader(f, schema)
             for record in reader:
                 data.append(record)
+        print(f"Successfully read {len(data)} records from Avro file.")
     except ValueError as e:
         print(f"Error reading Avro file: {e}")
+    except Exception as e:
+        print(f"Unexpected error while reading Avro file: {e}")
     
     return data
+
 
 @app.route('/')
 def home():
@@ -48,19 +52,23 @@ def add_data():
         name = request.json.get('name')
         value = request.json.get('value')
 
+        # Logga de mottagna värdena
         print(f"Received data: name={name}, value={value}")
-
+        
         if not name or not value:
             raise ValueError("Name and value are required!")
 
         new_data = [{"name": name, "value": value}]
         
         write_to_avro(new_data)
+
+        print("Data written to Avro successfully.")
         
         return jsonify({"message": "Data added successfully!"}), 201
     except Exception as e:
         print(f"Error occurred: {e}")
         return jsonify({"message": f"Error: {e}"}), 500
+
 
 @app.route('/data/sum', methods=['GET'])
 def sum_values():
