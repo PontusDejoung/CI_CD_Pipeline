@@ -15,5 +15,5 @@ COPY . .
 EXPOSE 6000
 
 # Använd Gunicorn för att köra Flask-applikationen
-CMD ["gunicorn", "--bind", "0.0.0.0:6000", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:6000", "app.app:app"]
 
