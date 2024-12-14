@@ -44,14 +44,23 @@ def get_data():
 
 @app.route('/data', methods=['POST'])
 def add_data():
-    name = request.json.get('name')
-    value = request.json.get('value')
+    try:
+        name = request.json.get('name')
+        value = request.json.get('value')
 
-    new_data = [{"name": name, "value": value}]
-    
-    write_to_avro(new_data)
-    
-    return jsonify({"message": "Data added successfully!"}), 201
+        print(f"Received data: name={name}, value={value}")
+
+        if not name or not value:
+            raise ValueError("Name and value are required!")
+
+        new_data = [{"name": name, "value": value}]
+        
+        write_to_avro(new_data)
+        
+        return jsonify({"message": "Data added successfully!"}), 201
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({"message": f"Error: {e}"}), 500
 
 @app.route('/data/sum', methods=['GET'])
 def sum_values():
