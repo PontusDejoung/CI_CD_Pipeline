@@ -14,5 +14,6 @@ COPY . .
 # Exponera porten som Flask kör på
 EXPOSE 6000
 
-# Starta Flask-applikationen med Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:6000", "app:app"]
+# Använd Gunicorn för att köra Flask-applikationen
+CMD ["gunicorn", "--bind", "0.0.0.0:6000", "app:app"]
+
