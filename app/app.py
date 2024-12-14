@@ -39,6 +39,22 @@ def read_from_avro():
     
     return data
 
+def convert_to_utf8(data):
+    """
+    Försöker konvertera data till UTF-8 om det inte redan är i korrekt format.
+    Om konverteringen misslyckas, returnerar den ett felmeddelande.
+    """
+    try:
+        if isinstance(data, str):
+            return data.encode('utf-8', 'ignore').decode('utf-8')
+        elif isinstance(data, bytes):
+        
+            return data.decode('utf-8', 'ignore')
+        else:
+            return data
+    except UnicodeDecodeError as e:
+        print(f"Error decoding data: {e}")
+        return None
 
 @app.route('/')
 def home():
@@ -56,6 +72,9 @@ def add_data():
     try:
         name = request.json.get('name')
         value = request.json.get('value')
+
+        name = convert_to_utf8(name)
+        value = convert_to_utf8(value)
 
         # Logga de mottagna värdena
         print(f"Received data: name={name}, value={value}")
